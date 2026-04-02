@@ -1,0 +1,326 @@
+{
+  "project": {
+    "name": "Cisco Tango",
+    "key": "CT",
+    "description": "Enterprise iOS indoor asset tracking app",
+    "phase": "Pre-GA (Beta)",
+    "client": "Cisco",
+    "jira_base_url": "https://arctouch.atlassian.net/browse",
+    "milestones": {
+      "cisco_live_vegas": "2026-05-31",
+      "general_availability": "2026-07-01",
+      "first_tags_ship": "2026-07-08",
+      "sow_end": "2026-07-21"
+    }
+  },
+  "metadata": {
+    "generated_at": "2026-04-02T14:30:00Z",
+    "period": "2026-03-19 to 2026-04-02",
+    "period_label": "Last 14 days",
+    "data_sources": ["Jira", "Slack", "Notion", "GitHub (via Jira/Slack signals)"]
+  },
+  "overall_health": {
+    "status": "Yellow",
+    "label": "Needs Attention",
+    "summary": "Project is active and making progress toward GA, but 2 critical production bugs and a growing review bottleneck need immediate attention.",
+    "breakdown": "2 of 5 dimensions are Red, 2 are Yellow, 1 is Green"
+  },
+  "dimensions": {
+    "velocity": {
+      "status": "Yellow",
+      "data_source": "Jira",
+      "headline": "Backlog is growing faster than the team can close items",
+      "facts": [
+        {"label": "Items completed (last 14d)", "value": "15", "source": "Jira: status changed to Done since Mar 18"},
+        {"label": "Items created (last 14d)", "value": "50", "source": "Jira: created date >= Mar 18"},
+        {"label": "Ratio created vs completed", "value": "3.3x", "source": "50 created / 15 completed"},
+        {"label": "Currently In Progress", "value": "8 items", "source": "Jira: status = 'In Progress'"},
+        {"label": "Backlog trend", "value": "Growing", "source": "Net +35 items added to backlog in 14 days"}
+      ],
+      "why_this_status": "Yellow because the backlog is growing 3.3x faster than completion. This is expected in pre-GA with active field testing, but sustained growth at this rate will become a problem.",
+      "detail": "15 items completed in the last 14 days while 50 new items were created. The creation spike comes from Northwestern Medicine beta testing feedback, HIMSS follow-ups, and Cisco Live learnings being translated into tickets."
+    },
+    "quality": {
+      "status": "Red",
+      "data_source": "Jira",
+      "headline": "2 critical bugs open, 1 unassigned",
+      "facts": [
+        {"label": "Critical bugs open", "value": "2", "source": "Jira: issuetype = Bug AND priority = Critical AND status != Done"},
+        {"label": "Major bugs open", "value": "2", "source": "Jira: issuetype = Bug AND priority = Major AND status != Done"},
+        {"label": "Low bugs open", "value": "4", "source": "Jira: issuetype = Bug AND priority = Low AND status != Done"},
+        {"label": "Total open bugs", "value": "8", "source": "Jira: issuetype = Bug AND status != Done"},
+        {"label": "Bugs as % of open items", "value": "16%", "source": "8 bugs / ~50 total open items"}
+      ],
+      "why_this_status": "Red because there are 2 open critical bugs. Any critical bug that blocks a core user flow triggers Red status.",
+      "critical_items": [
+        {
+          "key": "CT-485",
+          "url": "https://arctouch.atlassian.net/browse/CT-485",
+          "summary": "Login is pointing to Sandbox in PROD",
+          "priority": "Critical",
+          "status": "Code Review",
+          "assignee": "Paula Gueiros",
+          "created": "2026-04-01",
+          "risk": "Fix submitted -- now in Code Review. Blocks all production users until merged."
+        },
+        {
+          "key": "CT-486",
+          "url": "https://arctouch.atlassian.net/browse/CT-486",
+          "summary": "Venue screen is freezing",
+          "priority": "Critical",
+          "status": "Ready (Unassigned)",
+          "assignee": "Unassigned",
+          "created": "2026-04-01",
+          "risk": "Reported by Lucas during multi-user onboarding at customer site"
+        }
+      ],
+      "detail": "Both critical bugs were created on April 1. CT-485 (login sandbox) has been fixed by Paula and is now in Code Review -- needs urgent merge. CT-486 (venue freezing) still has no owner."
+    },
+    "flow": {
+      "status": "Red",
+      "data_source": "Jira",
+      "headline": "11 items stuck in Code Review, including the critical login fix",
+      "facts": [
+        {"label": "Items in Code Review", "value": "11", "source": "Jira: status = 'Code Review' (up from 5 yesterday)"},
+        {"label": "Oldest item in review", "value": "CT-433: 14 days", "source": "Jira: created Mar 19, still in Code Review on Apr 2"},
+        {"label": "Critical login fix in review", "value": "CT-485 moved to Code Review today", "source": "Jira: was In Progress on Apr 1, now Code Review on Apr 2"},
+        {"label": "Items In Progress (WIP)", "value": "3 active + old epics", "source": "Jira: active stories in 'In Progress' status"},
+        {"label": "Active dev team", "value": "2 developers", "source": "Paula (100%) + Vilson (100%). Bruno wrapping up, Joao off project."}
+      ],
+      "why_this_status": "Red because 11 items are queued for Code Review with only 2 active developers. The team reduction from 5 devs to 2 has made the review bottleneck worse. CT-485 (critical login fix) needs to be merged urgently.",
+      "stuck_items": [
+        {
+          "key": "CT-433",
+          "url": "https://arctouch.atlassian.net/browse/CT-433",
+          "summary": "Bottom sheet adjustments",
+          "assignee": "Paula Gueiros",
+          "days_in_review": 14,
+          "context": "Major architectural refactor: replacing unconventional bottom sheet pattern with Apple HIG-compliant behavior"
+        },
+        {
+          "key": "CT-442",
+          "url": "https://arctouch.atlassian.net/browse/CT-442",
+          "summary": "Remove old bottomSheetCoordinator code",
+          "assignee": "Bruno Duarte",
+          "days_in_review": 13,
+          "context": "Cleanup that depends on CT-433 being merged first"
+        },
+        {
+          "key": "CT-483",
+          "url": "https://arctouch.atlassian.net/browse/CT-483",
+          "summary": "Rename new objects removing the 'New' keyword",
+          "assignee": "Paula Gueiros",
+          "days_in_review": 1,
+          "context": "Sub-task of the bottom sheet work"
+        }
+      ],
+      "detail": "The bottom sheet refactor (CT-433) is a deliberate architectural improvement -- the team is replacing a custom navigation pattern with native iOS behavior. The extended review time is partly expected for a change this large, but it's creating a queue."
+    },
+    "communication": {
+      "status": "Green",
+      "data_source": "Slack",
+      "headline": "Team is highly active and engaged",
+      "facts": [
+        {"label": "Messages (last 14d)", "value": "65", "source": "Slack: #cisco-tango channel message count since Mar 18"},
+        {"label": "Average per day", "value": "4.6 messages/day", "source": "65 messages / 14 days"},
+        {"label": "Active participants", "value": "10 of 10 team members", "source": "Slack: unique message authors in #cisco-tango"},
+        {"label": "Thread engagement", "value": "72%", "source": "Slack: messages that received threaded replies / total messages"},
+        {"label": "Channels monitored", "value": "2", "source": "#cisco-tango + #cisco-tango-feature-demo"}
+      ],
+      "why_this_status": "Green because all team members are active, thread engagement is high (conversations, not monologues), and bug reports get rapid responses.",
+      "sentiment": {
+        "positive_signals": [
+          "App v1.0.1 launched on App Store (Mar 25) with team celebration",
+          "HIMSS 2026 report showed very positive customer reactions to demos",
+          "Successful demo day with important stakeholders attending",
+          "Navigation working well after on-site testing in San Francisco",
+          "AI-generated QA test case executed successfully with zero manual code"
+        ],
+        "concern_signals": [
+          "Multiple crash/login bug threads in the last 48 hours",
+          "Stale data issue at beta site required extended debugging",
+          "Pendo/Sentry credentials still pending from Cisco side",
+          "Team member (Gustavo) transitioning off project to AKQA opportunity"
+        ]
+      },
+      "detail": "The Slack channel is healthy. Bug reports from Lee and Camila get threaded responses within minutes. Cross-functional participation is strong -- devs, QA, PM, design, and the client-side program manager are all actively communicating."
+    },
+    "alignment": {
+      "status": "Yellow",
+      "data_source": "Notion + Jira",
+      "headline": "Weekly syncs are consistent, but 5 action items have no Jira tickets",
+      "facts": [
+        {"label": "Meetings (last 14d)", "value": "3 weekly syncs", "source": "Notion: meeting notes dated Mar 17, Mar 24, Mar 31"},
+        {"label": "Action items (last meeting)", "value": "13", "source": "Notion: March 31 meeting notes action items table"},
+        {"label": "Action items without Jira tickets", "value": "5 of 21", "source": "Cross-reference: Notion action items searched against Jira (no matching tickets found)"},
+        {"label": "Last meeting", "value": "March 31, 2026", "source": "Notion: most recent meeting note in Cisco Tango space"},
+        {"label": "Last retrospective", "value": "March 13, 2026", "source": "Slack: retrospective action items posted by Francine"}
+      ],
+      "why_this_status": "Yellow because 5 action items from the March 24 and March 31 meetings have no corresponding Jira tickets. These are commitments that could fall through the cracks.",
+      "untracked_action_items": [
+        {
+          "action": "Build custom analytics API (Pendo-compatible format) for event routing",
+          "owner": "Siva's team + Vikas",
+          "from_meeting": "March 31",
+          "status": "No Jira ticket found"
+        },
+        {
+          "action": "Align with Bharath on business outcome metrics before building analytics dashboard",
+          "owner": "Fernanda + Lee",
+          "from_meeting": "March 31",
+          "status": "No Jira ticket found"
+        },
+        {
+          "action": "Schedule dedicated app onboarding meeting with Julian and Bharath",
+          "owner": "Fernanda + Lee",
+          "from_meeting": "March 24",
+          "status": "No Jira ticket found"
+        },
+        {
+          "action": "Schedule dedicated business KPIs meeting with Julian and Bharath",
+          "owner": "Fernanda + Lee",
+          "from_meeting": "March 24",
+          "status": "No Jira ticket found"
+        },
+        {
+          "action": "Monitor and share user testing feedback from Mandy (Figma prototype sessions)",
+          "owner": "Lee",
+          "from_meeting": "March 24",
+          "status": "No Jira ticket found"
+        }
+      ],
+      "key_decisions": [
+        "Three red flags must be resolved before GA: login flow, building auto-detection, blank map onboarding",
+        "Email-first login model replacing three-button screen",
+        "Building auto-detection as primary experience (BLE beacon UID + GPS fallback)",
+        "Pendo is a stopgap -- move to custom analytics API",
+        "Internal employee testing postponed until red flags are fixed"
+      ],
+      "detail": "The team has strong meeting discipline -- weekly syncs are happening consistently and producing clear decisions. The gap is in follow-through: 5 action items discussed in meetings were not turned into trackable Jira tickets."
+    }
+  },
+  "insights": [
+    {
+      "id": 1,
+      "severity": "critical",
+      "icon": "alert-triangle",
+      "title": "Critical login fix in Code Review -- needs urgent merge",
+      "detail": "CT-485 (Login pointing to Sandbox in PROD) has been fixed by Paula and moved to Code Review. It needs to be merged ASAP to unblock production users. CT-486 (Venue screen freezing) is still unassigned.",
+      "recommendation": "Merge CT-485 today. Assign CT-486 to a developer. Both block GA readiness.",
+      "source": "Jira"
+    },
+    {
+      "id": 2,
+      "severity": "warning",
+      "icon": "clock",
+      "title": "Code Review queue doubled to 11 items -- only 2 devs to review",
+      "detail": "Code Review queue grew from 5 to 11 items overnight. CT-433 (14 days), CT-442 (13 days), CT-485 (critical login fix, just entered review). With only Paula and Vilson as active developers, the review capacity is severely constrained.",
+      "recommendation": "Consider bringing Joao back temporarily to help clear the review queue. Prioritize CT-485 (critical) and CT-433 (blocking downstream work).",
+      "source": "Jira"
+    },
+    {
+      "id": 3,
+      "severity": "warning",
+      "icon": "list-checks",
+      "title": "5 meeting action items have no Jira tickets",
+      "detail": "Cross-referencing Notion meeting notes (Mar 24, Mar 31) against Jira found 5 commitments with no tracking ticket: analytics API build, KPI alignment, onboarding deep-dive, KPI meeting, user testing feedback.",
+      "recommendation": "Create Jira tickets for these to ensure they don't fall through the cracks before GA.",
+      "source": "Notion + Jira cross-reference"
+    },
+    {
+      "id": 4,
+      "severity": "info",
+      "icon": "trending-up",
+      "title": "Backlog growing 3.3x faster than completion rate",
+      "detail": "50 items created vs 15 completed in 14 days. This spike comes from Northwestern beta feedback, HIMSS follow-ups, and Cisco Live learnings being translated into tickets.",
+      "recommendation": "Expected for this project phase. Focus the team on the 3 GA red flags rather than spreading across all new items.",
+      "source": "Jira"
+    },
+    {
+      "id": 5,
+      "severity": "warning",
+      "icon": "users",
+      "title": "Team reduced significantly -- key resourcing risks ahead",
+      "detail": "Joao Limiere (Dev), Louise Bougleux (QA Lead), and Gustavo Stefani (Designer) are off the project. Bruno Duarte wrapping up this week. Francine and Camila reduced to 50%. Additionally, Paula (TL) has jury duty on 11 days in April, creating unpredictable availability for the most critical team member.",
+      "recommendation": "Joao Limiere was proposed as backup for Paula's jury duty days. Confirm his availability. Design gap needs coverage -- new design allocation planned for April.",
+      "source": "Slack (#cisco-mgmt)"
+    },
+    {
+      "id": 6,
+      "severity": "info",
+      "icon": "calendar",
+      "title": "91 days to GA -- quality over features from here on",
+      "detail": "Launch timeline: Cisco Live Vegas (May 31) -> General Availability (July 1) -> First tags ship (July 8) -> SOW end (July 21). Client direction: 'Between now and launch, our job is testing and polishing, not building new things.' The Nearby experience carries the entire product since Cisco is launching with a single UWB tag SKU.",
+      "recommendation": "Align sprint priorities with the 'quality over features' mandate. Nearby mode must be bulletproof.",
+      "source": "Slack (#cisco-mgmt)"
+    }
+  ],
+  "timeline": [
+    {"date": "2026-04-02", "source": "slack", "event": "Fernanda shared Cisco tech owners list for each product area (Auth, APIs, UWB, Mapping, Navigation)", "type": "deliverable"},
+    {"date": "2026-04-02", "source": "jira", "event": "CT-485 moved from In Progress to Code Review -- login fix ready for merge", "type": "fix", "url": "https://arctouch.atlassian.net/browse/CT-485"},
+    {"date": "2026-04-02", "source": "jira", "event": "Code Review queue grew to 11 items (was 5 yesterday)", "type": "incident"},
+    {"date": "2026-04-01", "source": "jira", "event": "CT-486 created: Venue screen is freezing (Critical, Unassigned)", "type": "bug", "url": "https://arctouch.atlassian.net/browse/CT-486"},
+    {"date": "2026-04-01", "source": "jira", "event": "CT-485 created: Login pointing to Sandbox in PROD (Critical)", "type": "bug", "url": "https://arctouch.atlassian.net/browse/CT-485"},
+    {"date": "2026-04-01", "source": "slack", "event": "Lee reported Santosh had a crash on latest STG version via Connect app", "type": "incident"},
+    {"date": "2026-04-01", "source": "slack", "event": "Camila reported Lucas's venue screen freeze during multi-user onboarding", "type": "incident"},
+    {"date": "2026-03-31", "source": "notion", "event": "Weekly sync with Bharath & Vikas: 3 GA red flags identified, 13 action items", "type": "meeting"},
+    {"date": "2026-03-31", "source": "slack", "event": "Fernanda: postpone on-site Cisco employee testing until red flags are fixed", "type": "decision"},
+    {"date": "2026-03-31", "source": "slack", "event": "Camila reproduced the login issue -- endpoints returning errors on Webex and Google SSO", "type": "incident"},
+    {"date": "2026-03-31", "source": "slack", "event": "Lee flagged users getting 'having trouble loading' screen upon login", "type": "incident"},
+    {"date": "2026-03-30", "source": "slack", "event": "Francine flagged Paula's jury duty (11 days in April) -- requested Joao as backup", "type": "team_change"},
+    {"date": "2026-03-30", "source": "slack", "event": "Camila shared first version of on-site test script for review", "type": "deliverable"},
+    {"date": "2026-03-27", "source": "slack", "event": "Juliano shared Lucas meeting outcome: quality over features, Nearby mode is centrepiece, Fernanda is PM lead", "type": "decision"},
+    {"date": "2026-03-27", "source": "slack", "event": "Francine forwarded Bharath's field feedback: building search needed for 100+ buildings, GPS/BLE indicator unclear", "type": "feedback"},
+    {"date": "2026-03-26", "source": "slack", "event": "Francine shared weekly report: app live on App Store v1.0.1, planning next enhancements for July launch", "type": "deliverable"},
+    {"date": "2026-03-25", "source": "slack", "event": "Francine announced: Cisco Tango App is now live with v1.0.1 on App Store", "type": "milestone"},
+    {"date": "2026-03-25", "source": "slack", "event": "Camila completed smoke test on TF PROD 1.2.0 (8) -- 4 fixes verified", "type": "release"},
+    {"date": "2026-03-25", "source": "slack", "event": "Francine shared team allocation changes: Joao, Louise off; Gustavo released; Bruno wrapping up; Fran/Camila to 50%", "type": "team_change"},
+    {"date": "2026-03-24", "source": "notion", "event": "Weekly sync: 'Can't find it' flow defined as table stakes, map is the hero differentiator", "type": "meeting"},
+    {"date": "2026-03-20", "source": "slack", "event": "Joao & Vilson tested on-site in SF: navigation improved, identified 3rd floor AP infrastructure issue", "type": "milestone"},
+    {"date": "2026-03-20", "source": "slack", "event": "Paula shared HIMSS 2026 Readout Report: positive customer reactions across multiple segments", "type": "milestone"},
+    {"date": "2026-03-20", "source": "slack", "event": "Gustavo announced transition to AKQA project by end of month", "type": "team_change"},
+    {"date": "2026-03-20", "source": "slack", "event": "Camila: first 100% AI-generated QA test case executed successfully", "type": "innovation"},
+    {"date": "2026-03-19", "source": "slack", "event": "Joao identified and fixed blue dot showing on all floors -- root cause: SDK floor selector bypass (CT-432)", "type": "fix", "url": "https://arctouch.atlassian.net/browse/CT-432"},
+    {"date": "2026-03-19", "source": "slack", "event": "Paula distributed Pointr SDK Sample Apps via Firebase for internal testing", "type": "deliverable"},
+    {"date": "2026-03-18", "source": "slack", "event": "Francine shared demo day recording -- presented to important stakeholders", "type": "milestone"},
+    {"date": "2026-03-17", "source": "slack", "event": "Francine presented at Demo Day -- Fernanda: 'YOU ROOOOOCKK!! AWESOME DEMO PRESENTATION'", "type": "milestone"},
+    {"date": "2026-03-13", "source": "slack", "event": "Team retrospective (Start/Stop/Continue): defined stakeholder management, ticket quality, and source of truth actions", "type": "meeting"}
+  ],
+  "team": {
+    "active_members": [
+      {"name": "Paula Gueiros", "role": "iOS Developer", "wip": 4, "status": "active"},
+      {"name": "Fernanda Vaz", "role": "Product Manager", "wip": 2, "status": "active"},
+      {"name": "Camila Bernardon", "role": "QA Engineer", "wip": 1, "status": "active"},
+      {"name": "Vilson Farias", "role": "iOS Developer", "wip": 2, "status": "active"},
+      {"name": "Lee Cooper", "role": "Program Manager", "wip": 0, "status": "active"},
+      {"name": "Francine Souza", "role": "Delivery Manager", "wip": 0, "status": "active"},
+      {"name": "Gustavo Stefani", "role": "UI/UX Designer", "wip": 1, "status": "transitioning"},
+      {"name": "Joao Limiere", "role": "iOS Developer", "wip": 1, "status": "active"},
+      {"name": "Bruno Duarte", "role": "iOS Developer", "wip": 1, "status": "active"},
+      {"name": "Louise Bougleux", "role": "QA Engineer", "wip": 1, "status": "active"}
+    ]
+  },
+  "ga_readiness": {
+    "red_flags": [
+      {
+        "flag": "Login confusion (3-button screen)",
+        "status": "In Progress",
+        "owner": "Vikas / Dnyanada + Paula",
+        "detail": "Email-first login model agreed upon. Dnyanada has started work."
+      },
+      {
+        "flag": "Building selection (100+ buildings)",
+        "status": "Planned",
+        "owner": "Paula / Fernanda",
+        "detail": "Auto-detection via BLE beacon UID + GPS fallback."
+      },
+      {
+        "flag": "Blank map 'now what?' state",
+        "status": "Design Phase",
+        "owner": "Fernanda / Design team",
+        "detail": "Structural UX problem. Needs onboarding redesign, not tooltips."
+      }
+    ],
+    "blockers_for_internal_testing": "All 3 red flags must be resolved before internal Cisco employee testing (confirmed by Vikas and Bharath on March 31)."
+  }
+}
