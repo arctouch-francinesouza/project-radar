@@ -14,8 +14,8 @@
     }
   },
   "metadata": {
-    "generated_at": "2026-04-02T14:30:00Z",
-    "period": "2026-03-19 to 2026-04-02",
+    "generated_at": "2026-04-06T12:00:00Z",
+    "period": "2026-03-23 to 2026-04-06",
     "period_label": "Last 14 days",
     "data_sources": ["Jira", "Slack", "Notion", "GitHub (via Jira/Slack signals)"]
   },
@@ -31,14 +31,14 @@
       "data_source": "Jira",
       "headline": "Backlog is growing faster than the team can close items",
       "facts": [
-        {"label": "Items completed (last 14d)", "value": "15", "source": "Jira: status changed to Done since Mar 18"},
-        {"label": "Items created (last 14d)", "value": "50", "source": "Jira: created date >= Mar 18"},
-        {"label": "Ratio created vs completed", "value": "3.3x", "source": "50 created / 15 completed"},
-        {"label": "Currently In Progress", "value": "8 items", "source": "Jira: status = 'In Progress'"},
-        {"label": "Backlog trend", "value": "Growing", "source": "Net +35 items added to backlog in 14 days"}
+        {"label": "Items completed (last 14d)", "value": "10", "source": "Jira: status changed to Done since Mar 23"},
+        {"label": "Items created (last 14d)", "value": "50", "source": "Jira: created date >= Mar 23"},
+        {"label": "Ratio created vs completed", "value": "5x", "source": "50 created / 10 completed"},
+        {"label": "Currently In Progress", "value": "5 active items", "source": "Jira: status = 'In Progress' (excluding old epics)"},
+        {"label": "Backlog trend", "value": "Growing", "source": "Net +40 items added to backlog in 14 days"}
       ],
-      "why_this_status": "Yellow because the backlog is growing 3.3x faster than completion. This is expected in pre-GA with active field testing, but sustained growth at this rate will become a problem.",
-      "detail": "15 items completed in the last 14 days while 50 new items were created. The creation spike comes from Northwestern Medicine beta testing feedback, HIMSS follow-ups, and Cisco Live learnings being translated into tickets."
+      "why_this_status": "Yellow because the backlog is growing 5x faster than completion. With the reduced team (2 devs), throughput has dropped from 15 to 10 completions per 14-day window.",
+      "detail": "10 items completed in the last 14 days while 50 new items were created. Completions have slowed due to the team reduction. The Code Review bottleneck (11 items) is the primary blocker."
     },
     "quality": {
       "status": "Red",
@@ -82,7 +82,7 @@
       "headline": "11 items stuck in Code Review, including the critical login fix",
       "facts": [
         {"label": "Items in Code Review", "value": "11", "source": "Jira: status = 'Code Review' (up from 5 yesterday)"},
-        {"label": "Oldest item in review", "value": "CT-433: 14 days", "source": "Jira: created Mar 19, still in Code Review on Apr 2"},
+        {"label": "Oldest item in review", "value": "CT-433: 18 days", "source": "Jira: created Mar 19, still in Code Review on Apr 6"},
         {"label": "Critical login fix in review", "value": "CT-485 moved to Code Review today", "source": "Jira: was In Progress on Apr 1, now Code Review on Apr 2"},
         {"label": "Items In Progress (WIP)", "value": "3 active + old epics", "source": "Jira: active stories in 'In Progress' status"},
         {"label": "Active dev team", "value": "2 developers", "source": "Paula (100%) + Vilson (100%). Bruno wrapping up, Joao off project."}
@@ -94,7 +94,7 @@
           "url": "https://arctouch.atlassian.net/browse/CT-433",
           "summary": "Bottom sheet adjustments",
           "assignee": "Paula Gueiros",
-          "days_in_review": 14,
+          "days_in_review": 18,
           "context": "Major architectural refactor: replacing unconventional bottom sheet pattern with Apple HIG-compliant behavior"
         },
         {
@@ -102,7 +102,7 @@
           "url": "https://arctouch.atlassian.net/browse/CT-442",
           "summary": "Remove old bottomSheetCoordinator code",
           "assignee": "Bruno Duarte",
-          "days_in_review": 13,
+          "days_in_review": 17,
           "context": "Cleanup that depends on CT-433 being merged first"
         },
         {
@@ -110,7 +110,7 @@
           "url": "https://arctouch.atlassian.net/browse/CT-483",
           "summary": "Rename new objects removing the 'New' keyword",
           "assignee": "Paula Gueiros",
-          "days_in_review": 1,
+          "days_in_review": 6,
           "context": "Sub-task of the bottom sheet work"
         }
       ],
@@ -213,9 +213,9 @@
       "id": 2,
       "severity": "warning",
       "icon": "clock",
-      "title": "Code Review queue doubled to 11 items -- only 2 devs to review",
-      "detail": "Code Review queue grew from 5 to 11 items overnight. CT-433 (14 days), CT-442 (13 days), CT-485 (critical login fix, just entered review). With only Paula and Vilson as active developers, the review capacity is severely constrained.",
-      "recommendation": "Consider bringing Joao back temporarily to help clear the review queue. Prioritize CT-485 (critical) and CT-433 (blocking downstream work).",
+      "title": "Code Review queue stuck at 11 items for 4 days -- CT-433 now at 18 days",
+      "detail": "No items have left Code Review since Apr 2. CT-433 (18 days), CT-442 (17 days), CT-485 (critical login fix, 5 days in review). With only Paula and Vilson as active developers, the queue is not moving.",
+      "recommendation": "This is now the #1 blocker. Bring Joao back to help review. CT-485 (critical login fix) has been waiting 5 days for merge.",
       "source": "Jira"
     },
     {
@@ -231,9 +231,9 @@
       "id": 4,
       "severity": "info",
       "icon": "trending-up",
-      "title": "Backlog growing 3.3x faster than completion rate",
-      "detail": "50 items created vs 15 completed in 14 days. This spike comes from Northwestern beta feedback, HIMSS follow-ups, and Cisco Live learnings being translated into tickets.",
-      "recommendation": "Expected for this project phase. Focus the team on the 3 GA red flags rather than spreading across all new items.",
+      "title": "Backlog growing 5x faster than completion -- throughput declining",
+      "detail": "50 items created vs 10 completed in 14 days (was 15 completions last period). Throughput dropped 33% due to team reduction and Code Review bottleneck.",
+      "recommendation": "The Code Review queue is the root cause. Clearing it will unlock velocity.",
       "source": "Jira"
     },
     {
@@ -249,13 +249,15 @@
       "id": 6,
       "severity": "info",
       "icon": "calendar",
-      "title": "91 days to GA -- quality over features from here on",
+      "title": "86 days to GA -- quality over features from here on",
       "detail": "Launch timeline: Cisco Live Vegas (May 31) -> General Availability (July 1) -> First tags ship (July 8) -> SOW end (July 21). Client direction: 'Between now and launch, our job is testing and polishing, not building new things.' The Nearby experience carries the entire product since Cisco is launching with a single UWB tag SKU.",
       "recommendation": "Align sprint priorities with the 'quality over features' mandate. Nearby mode must be bulletproof.",
       "source": "Slack (#cisco-mgmt)"
     }
   ],
   "timeline": [
+    {"date": "2026-04-06", "source": "slack", "event": "No new Slack activity since Apr 2 -- channel quiet over weekend/holiday", "type": "info"},
+    {"date": "2026-04-04", "source": "slack", "event": "Santosh crash thread reached 18 replies -- continued investigation", "type": "incident"},
     {"date": "2026-04-02", "source": "slack", "event": "Fernanda shared Cisco tech owners list for each product area (Auth, APIs, UWB, Mapping, Navigation)", "type": "deliverable"},
     {"date": "2026-04-02", "source": "jira", "event": "CT-485 moved from In Progress to Code Review -- login fix ready for merge", "type": "fix", "url": "https://arctouch.atlassian.net/browse/CT-485"},
     {"date": "2026-04-02", "source": "jira", "event": "Code Review queue grew to 11 items (was 5 yesterday)", "type": "incident"},
